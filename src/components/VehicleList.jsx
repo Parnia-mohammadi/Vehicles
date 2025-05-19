@@ -3,6 +3,7 @@ import { FixedSizeList } from "react-window";
 import { useInView } from "react-intersection-observer";
 import axios from "axios";
 import { loadFromCache, saveToCache } from "../services/cacheService";
+import { Link } from "react-router-dom";
 
 const fetchVehicles = async (page, limit = 50) => {
   const cacheKey = `vehicles-page-${page}`;
@@ -22,7 +23,12 @@ const fetchVehicles = async (page, limit = 50) => {
   }
 };
 
-const VehicleList = ({ vehicles, setVehicles }) => {
+const VehicleList = ({
+  vehicles,
+  setVehicles,
+  selectedVehicle,
+  onSelectVehicle,
+}) => {
   const [page, setPage] = useState(1);
   const { ref, inView } = useInView();
 
@@ -46,7 +52,18 @@ const VehicleList = ({ vehicles, setVehicles }) => {
         itemSize={50}
         itemCount={vehicles.length}
       >
-        {({ index, style }) => <div style={style}>{vehicles[index]?.vin}</div>}
+        {({ index, style }) => (
+          <div style={style}>
+            {
+              <Link
+                key={vehicles[index]}
+                to={`${vehicles[index]?.vin}?lat=${vehicles[index].geoCoordinate.latitude}&lng=${vehicles[index].geoCoordinate.longitude}`}
+              >
+                {vehicles[index]?.vin}
+              </Link>
+            }
+          </div>
+        )}
       </FixedSizeList>
       <div ref={ref} style={{ height: "20px" }} />
     </div>

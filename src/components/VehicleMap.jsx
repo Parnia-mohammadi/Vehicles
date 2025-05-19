@@ -33,7 +33,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster";
 
-const VehicleMap = ({ vehicles }) => {
+const VehicleMap = ({ vehicles, selectedVehicle, onSelectVehicle }) => {
   const mapRef = useRef(null);
 
   useEffect(() => {
@@ -48,15 +48,16 @@ const VehicleMap = ({ vehicles }) => {
         vehicle.geoCoordinate.longitude,
       ]).bindPopup(`
         <strong>${vehicle.plate}</strong><br/>
-        موقعیت: (${vehicle.geoCoordinate.latitude}, ${vehicle.geoCoordinate.longitude})
+        address: ${vehicle.address}
       `);
 
-      marker.on("click", () =>
+      marker.on("click", () => {
+        onSelectVehicle(vehicle);
         map.setView(
           [vehicle.geoCoordinate.latitude, vehicle.geoCoordinate.longitude],
           14
-        )
-      );
+        );
+      });
       markerClusterGroup.addLayer(marker);
     });
 
@@ -71,7 +72,7 @@ const VehicleMap = ({ vehicles }) => {
     <MapContainer
       center={[53.5511, 9.9937]}
       zoom={12}
-      style={{ height: "500px", width: "100%" }}
+      style={{ height: "500px", width: "50%", borderRadius: "8px" }}
       ref={mapRef}
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
