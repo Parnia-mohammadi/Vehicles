@@ -1,51 +1,22 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { FixedSizeList } from "react-window";
 import { useInView } from "react-intersection-observer";
-import axios from "axios";
-import { loadFromCache, saveToCache } from "../services/cacheService";
 import { Link } from "react-router-dom";
+import { useVehicles } from "../context/vehiclesProvider";
 
-const fetchVehicles = async (page, limit = 50) => {
-  const cacheKey = `vehicles-page-${page}`;
-  const cachedVehicles = loadFromCache(cacheKey);
-  if (cachedVehicles) return cachedVehicles;
-
-  try {
-    const response = await axios.get("http://localhost:5000/vehicles");
-    const start = (page - 1) * limit;
-    const end = start + limit;
-    const reducedVehicles = response.data.slice(start, end);
-    saveToCache(cacheKey, reducedVehicles);
-    return reducedVehicles;
-  } catch (error) {
-    console.error("Error fetching vehicles:", error);
-    return [];
-  }
-};
-
-const VehicleList = ({
-  vehicles,
-  setVehicles,
-  selectedVehicle,
-  onSelectVehicle,
-}) => {
-  const [page, setPage] = useState(1);
+const VehicleList = () => {
   const { ref, inView } = useInView();
+  const { vehicles, getVehicle, setPage, isLoading, totalVehicles } =
+    useVehicles();
 
   useEffect(() => {
-    const loadData = async () => {
-      const newVehicles = await fetchVehicles(page, 50);
-      setVehicles((prev) => [...prev, ...newVehicles]);
-    };
-    loadData();
-  }, [page]);
+    if (inView && vehicles.length < totalVehicles) setPage((prev) => prev + 1);
+  }, [inView, vehicles.length, totalVehicles]);
 
-  useEffect(() => {
-    if (inView) setPage((prev) => prev + 1);
-  }, [inView]);
-
+  if (isLoading) return <p>Loading ...</p>;
   return (
     <div>
+      <h1>Vehicle List :</h1>
       <FixedSizeList
         height={500}
         width={400}
@@ -57,7 +28,8 @@ const VehicleList = ({
             {
               <Link
                 key={vehicles[index]}
-                to={`${vehicles[index]?.vin}?lat=${vehicles[index].geoCoordinate.latitude}&lng=${vehicles[index].geoCoordinate.longitude}`}
+                to={`${vehicles[index]?.vin}`}
+                onClick={() => getVehicle(vehicles[index].vin)}
               >
                 {vehicles[index]?.vin}
               </Link>
