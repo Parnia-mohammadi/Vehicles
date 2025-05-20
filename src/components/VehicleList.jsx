@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useVehicles } from "../context/vehiclesProvider";
 import { Link } from "react-router-dom";
+import Loader from "./Loader";
 
 function VehicleList() {
   const { vehicles, page, setCurrentVehicle, isLoading, currentVehicle } =
@@ -21,7 +22,7 @@ function VehicleList() {
     }
   }, [currentVehicle]);
 
-  if (isLoading) return <p>Loading ...</p>;
+  if (isLoading) return <Loader />;
 
   return (
     <div className="w-full h-[60vh] flex flex-col justify-center">

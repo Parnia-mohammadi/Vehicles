@@ -4,8 +4,6 @@ function Pagination({
   totalVehicles,
   vehiclesPerPage,
 }) {
-  console.log(currentPage, handlePageChange, totalVehicles, vehiclesPerPage);
-
   return (
     <div className="flex justify-center items-center my-6 space-x-2">
       {currentPage > 1 && (

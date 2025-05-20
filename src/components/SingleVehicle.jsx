@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useVehicles } from "../context/vehiclesProvider";
 import toast from "react-hot-toast";
 import BackButton from "../ui/BackButton";
+import Loader from "./Loader";
 
 const SingleVehicle = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,18 +20,20 @@ const SingleVehicle = () => {
   };
 
   useEffect(() => {
-    try {
-      setIsLoading(true);
-      const vehicle = vehicles.find((v) => v.vin === vin);
-      setCurrentVehicle(vehicle);
-    } catch (err) {
-      toast.error(`single vehicle's fetch has problem: ${err.message}`);
-    } finally {
-      setIsLoading(false);
-    }
+    setIsLoading(true);
+    setTimeout(() => {
+      try {
+        const vehicle = vehicles.find((v) => v.vin === vin);
+        setCurrentVehicle(vehicle);
+      } catch (err) {
+        toast.error(`single vehicle's fetch has problem: ${err.message}`);
+      } finally {
+        setIsLoading(false);
+      }
+    }, 100);
   }, [vin]);
 
-  if (isLoading) return <p>loading ...</p>;
+  if (isLoading) return <Loader />;
   if (!vehicle) {
     return (
       <div className="flex flex-col items-center">
