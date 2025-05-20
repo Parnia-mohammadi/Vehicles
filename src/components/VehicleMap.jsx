@@ -1,41 +1,42 @@
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useVehicles } from "../context/vehiclesProvider";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 function VehicleMap() {
-  const { vehicles, currentVehicle, getVehicle } = useVehicles();
+  const { vehicles, currentVehicle, setCurrentVehicle } = useVehicles();
   const navigate = useNavigate();
-  const { vin } = useParams();
-  const [mapCenter, setMapCenter] = useState(
-    currentVehicle?.geoCoordinate
-      ? [
-          currentVehicle.geoCoordinate.latitude,
-          currentVehicle.geoCoordinate.longitude,
-        ]
-      : [53.5511, 9.9937]
-  );
+  const mapRef = useRef(null);
+  const markerRef = useRef(null);
 
   useEffect(() => {
-    if (!currentVehicle || !currentVehicle.geoCoordinate) return;
-    setMapCenter([
-      currentVehicle?.geoCoordinate.latitude,
-      currentVehicle?.geoCoordinate.longitude,
-    ]);
+    const map = mapRef.current;
+    if (!map) return;
+    if (!currentVehicle) {
+      map.setView([53.5511, 9.9937], 12);
+    } else {
+      map.setView(
+        [
+          currentVehicle?.geoCoordinate.latitude,
+          currentVehicle?.geoCoordinate.longitude,
+        ],
+        16
+      );
+    }
   }, [currentVehicle]);
 
   return (
     <MapContainer
-      center={mapCenter}
-      zoom={16}
+      center={[53.5511, 9.9937]}
+      zoom={12}
       style={{
         width: "50%",
         height: "100vh",
         borderRadius: "8px",
       }}
+      ref={mapRef}
     >
-      <ChangeCenter position={mapCenter} />
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {vehicles &&
         vehicles.map((vehicle) => (
@@ -47,15 +48,20 @@ function VehicleMap() {
             ]}
             eventHandlers={{
               click: () => {
-                getVehicle(vin);
+                setCurrentVehicle(vehicle);
                 navigate(`/vehicles/${vehicle.vin}`);
               },
             }}
           >
-            <Popup>
-              <p>{`plate:${vehicle.plate}`}</p>
-              {` address:${vehicle.address}`}
-              <p></p>
+            <Popup ref={markerRef}>
+              <p>
+                <span className="font-bold">Plate :</span>
+                {vehicle.plate}
+              </p>
+              <p>
+                <span className="font-bold">Address :</span>
+                {vehicle.address}
+              </p>
             </Popup>
           </Marker>
         ))}
@@ -63,12 +69,6 @@ function VehicleMap() {
   );
 }
 export default VehicleMap;
-
-function ChangeCenter({ position }) {
-  const Map = useMap();
-  Map.setView(position);
-  return null;
-}
 
 // import { useEffect, useRef, useState } from "react";
 // import { MapContainer, TileLayer } from "react-leaflet";

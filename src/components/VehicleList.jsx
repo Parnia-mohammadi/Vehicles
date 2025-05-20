@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { FixedSizeList } from "react-window";
 import { useInView } from "react-intersection-observer";
-import { Link } from "react-router-dom";
+import { Link, replace } from "react-router-dom";
 import { useVehicles } from "../context/vehiclesProvider";
 
 const VehicleList = () => {
   const { ref, inView } = useInView();
-  const { vehicles, getVehicle, setPage, isLoading, totalVehicles } =
+  const { vehicles, setPage, setCurrentVehicle, isLoading, totalVehicles } =
     useVehicles();
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const VehicleList = () => {
   if (isLoading) return <p>Loading ...</p>;
   return (
     <div>
-      <h1>Vehicle List :</h1>
+      <h1 className="text-xl font-bold text-center mb-4">Vehicle List :</h1>
       <FixedSizeList
         height={500}
         width={400}
@@ -29,7 +29,7 @@ const VehicleList = () => {
               <Link
                 key={vehicles[index]}
                 to={`${vehicles[index]?.vin}`}
-                onClick={() => getVehicle(vehicles[index].vin)}
+                onClick={() => setCurrentVehicle(vehicles[index])}
               >
                 {vehicles[index]?.vin}
               </Link>

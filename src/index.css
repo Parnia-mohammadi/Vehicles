@@ -1,0 +1,38 @@
+@import "tailwindcss";
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-green-100;
+    @apply h-full;
+  }
+  button {
+    @apply px-4 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition;
+  }
+} */
+
+/* .table-container {
+ w-full max-w-4xl mx-auto mt-5 rounded-lg shadow-lg overflow-hidden;
+}
+
+.vehicle-table {
+  @apply w-full border-collapse bg-white rounded-lg;
+}
+
+.vehicle-table th {
+  @apply bg-primary text-white p-3 text-left;
+}
+
+.vehicle-table td {
+  @apply p-3 border-b border-gray-300 text-gray-700;
+}
+
+.vehicle-table tr:hover {
+  @apply bg-gray-100;
+}
+
+body {
+  @apply bg-secondary text-text;
+} */
