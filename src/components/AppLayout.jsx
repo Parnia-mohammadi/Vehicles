@@ -4,7 +4,7 @@ import VehicleMap from "./VehicleMap";
 function AppLayout() {
   return (
     <div className="flex justify-between items-center gap-2 bg-[#f1f5f9] text-text">
-      <div className="flex items-center justify-center mx-auto w-[45%]">
+      <div className="flex items-center justify-center mx-auto w-[45%] h-screen">
         <Outlet />
       </div>
       <VehicleMap />

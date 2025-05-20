@@ -7,7 +7,6 @@ const VehiclesContext = createContext();
 export default function VehiclesProvider({ children }) {
   const [vehicles, setVehicles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [totalVehicles, setTotalVehicles] = useState(0);
   const [page, setPage] = useState(1);
   const [currentVehicle, setCurrentVehicle] = useState(null);
   //   const [isLoadingCurrentVehicle, setIsLoadingCurrentVehicle] = useState(false);
@@ -16,13 +15,9 @@ export default function VehiclesProvider({ children }) {
     const loadData = async () => {
       try {
         setIsLoading(true);
-        const { vehicles: newVehicles, totalVehicles } = await fetchVehicles(
-          page,
-          50
-        );
+        const newVehicles = await fetchVehicles(page, 50);
         if (newVehicles.length > 0) {
-          setVehicles((prev) => [...prev, ...newVehicles]);
-          setTotalVehicles(totalVehicles);
+          setVehicles(newVehicles);
         } else {
           toast.info("No more vehicles to load.");
         }
@@ -58,7 +53,6 @@ export default function VehiclesProvider({ children }) {
         // setIsLoadingCurrentVehicle,
         page,
         setPage,
-        totalVehicles,
       }}
     >
       {children}

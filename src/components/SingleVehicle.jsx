@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useVehicles } from "../context/vehiclesProvider";
 import toast from "react-hot-toast";
+import BackButton from "../ui/BackButton";
 
 const SingleVehicle = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,7 +15,6 @@ const SingleVehicle = () => {
   const navigate = useNavigate();
 
   const handleBack = () => {
-    setCurrentVehicle(null);
     navigate("/vehicles");
   };
 
@@ -31,20 +31,21 @@ const SingleVehicle = () => {
   }, [vin]);
 
   if (isLoading) return <p>loading ...</p>;
-  if (!vehicle) return <p>⚠ Vehicle not found</p>;
-
+  if (!vehicle) {
+    return (
+      <div className="flex flex-col items-center">
+        <p>⚠ Vehicle not found</p>
+        <BackButton onClick={handleBack} className="py-2 my-2 px-4" />
+      </div>
+    );
+  }
   return (
     <div className="w-full p-4 shadow-lg overflow-hidden rounded-2xl ">
       <div className="flex justify-between ">
         <h2 className="text-xl font-bold text-center mb-4 ">
           Vehicle Information
         </h2>
-        <button
-          className="text-gray-700 my-0 px-2 py-0 rounded-sm mb-2 hover:bg-blue-200 "
-          onClick={handleBack}
-        >
-          ← Back
-        </button>
+        <BackButton onClick={handleBack} className="mb-2" />
       </div>
 
       <table className="w-full border-collapse bg-white rounded-xl">

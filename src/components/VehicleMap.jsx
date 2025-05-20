@@ -2,20 +2,21 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useVehicles } from "../context/vehiclesProvider";
 import { useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function VehicleMap() {
   const { vehicles, currentVehicle, setCurrentVehicle } = useVehicles();
   const navigate = useNavigate();
   const mapRef = useRef(null);
   const markerRef = useRef(null);
+  const location = useLocation();
 
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
-    if (!currentVehicle) {
+    if (location.pathname === "/vehicles") {
       map.setView([53.5511, 9.9937], 12);
-    } else {
+    } else if (currentVehicle) {
       map.setView(
         [
           currentVehicle?.geoCoordinate.latitude,
@@ -37,6 +38,20 @@ function VehicleMap() {
       }}
       ref={mapRef}
     >
+      <ChangeMapCenter
+        position={
+          location.pathname === "/vehicles"
+            ? [53.5511, 9.9937]
+            : currentVehicle
+            ? [
+                currentVehicle.geoCoordinate.latitude,
+                currentVehicle.geoCoordinate.longitude,
+              ]
+            : [53.5511, 9.9937]
+        }
+        zoom={location.pathname === "/vehicles" ? 12 : 16}
+      />
+
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {vehicles &&
         vehicles.map((vehicle) => (
@@ -69,6 +84,12 @@ function VehicleMap() {
   );
 }
 export default VehicleMap;
+
+function ChangeMapCenter({ position, zoom }) {
+  const map = useMap();
+  map.setView(position, zoom);
+  return null;
+}
 
 // import { useEffect, useRef, useState } from "react";
 // import { MapContainer, TileLayer } from "react-leaflet";
