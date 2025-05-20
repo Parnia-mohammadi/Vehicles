@@ -9,7 +9,7 @@ export default function VehiclesProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [currentVehicle, setCurrentVehicle] = useState(null);
-  //   const [isLoadingCurrentVehicle, setIsLoadingCurrentVehicle] = useState(false);
+
 
   useEffect(() => {
     const loadData = async () => {
@@ -30,17 +30,6 @@ export default function VehiclesProvider({ children }) {
     loadData();
   }, [page]);
 
-  //   async function getVehicle(vin) {
-  //     setIsLoadingCurrentVehicle(true);
-  //     try {
-  //       setCurrentVehicle(() => vehicles.find((v) => v.vin === vin));
-  //     } catch (error) {
-  //       toast.error(error.message);
-  //     } finally {
-  //       setIsLoadingCurrentVehicle(false);
-  //     }
-  //   }
-
   return (
     <VehiclesContext.Provider
       value={{
@@ -49,8 +38,6 @@ export default function VehiclesProvider({ children }) {
         setVehicles,
         currentVehicle,
         setCurrentVehicle,
-        // isLoadingCurrentVehicle,
-        // setIsLoadingCurrentVehicle,
         page,
         setPage,
       }}

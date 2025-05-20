@@ -1,12 +1,21 @@
-# React + Vite
+# 🚀 Vehicle Tracking System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the **Vehicle Tracking System**, a modern solution for tracking and managing vehicles efficiently. This project provides a **visual and interactive** experience using maps and dynamic data visualization.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🚗 **Vehicle List Pagination** – Browse through a structured table of vehicles with pagination.By adding pagination, the time of loading data has been reduced.
+- 🗺 **Interactive Map Integration** – Click on a vehicle to focus the map on its location and show the relevant data.when you click on the back button, it will navigate to the list of the vehicles. the last choosen vehicle will be highligthed.
+- 🔍 **Data Persistence** – Efficient caching with optimized API calls.By saving data in the local storage.the app doesn't send alot of request.
+- ⚡ **Minimal & Modern UI** – Designed with **React.js**, **Tailwind CSS**, **React-router-dom**, **JSON-server** and **Leaflet.js**.
 
-## Expanding the ESLint configuration
+## 📦 Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+To get started, clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/Parnia-mohammadi/Vehicles
+cd your-repo
+npm install
+npm run dev
+```

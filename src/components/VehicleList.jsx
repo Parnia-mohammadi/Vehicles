@@ -1,28 +1,33 @@
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 import { useVehicles } from "../context/vehiclesProvider";
 import { Link } from "react-router-dom";
-import { loadFromCache } from "../services/cacheService";
 
 function VehicleList() {
-  const { vehicles, setPage, setCurrentVehicle, isLoading, currentVehicle } =
+  const { vehicles, page, setCurrentVehicle, isLoading, currentVehicle } =
     useVehicles();
-  const totalVehicles = loadFromCache("totalVehiclesLength");
-  const [currentPage, setCurrentPage] = useState(1);
   const vehiclesPerPage = 50;
+  const rowRefs = useRef([]);
 
-  const handlePageChange = (page) => {
-    setPage(page);
-    setCurrentPage(page);
-  };
+  useEffect(() => {
+    if (!currentVehicle) return;
+    const vehicleIndex = vehicles.findIndex(
+      (v) => v.vin === currentVehicle?.vin
+    );
+    if (vehicleIndex !== -1 && rowRefs.current[vehicleIndex]) {
+      rowRefs.current[vehicleIndex].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [currentVehicle]);
 
   if (isLoading) return <p>Loading ...</p>;
 
   return (
-    <div className="max-w-4xl mx-auto p-6 h-screen flex flex-col">
-      <h1 className="text-xl font-bold text-center mb-4">Vehicle List</h1>
-      <div className="flex-grow overflow-y-auto border border-gray-300 rounded-lg shadow-lg">
+    <div className="w-full h-[60vh] flex flex-col justify-center">
+      <div className="flex-grow h-full items-center overflow-y-auto rounded-lg ml-12">
         <table className="w-full border-collapse bg-white">
-          <thead className="sticky top-0 bg-blue-200 text-gray-700">
+          <thead className="sticky top-0 bg-blue-100 text-gray-700">
             <tr>
               <th className="p-3 text-left">Index</th>
               <th className="p-3 text-left">VIN</th>
@@ -36,9 +41,10 @@ function VehicleList() {
                 className={`border-b border-gray-300 hover:bg-gray-100 ${
                   vehicle.vin === currentVehicle?.vin ? "bg-indigo-100" : ""
                 }`}
+                ref={(el) => (rowRefs.current[index] = el)}
               >
                 <td className="p-3">
-                  {index + 1 + (currentPage - 1) * vehiclesPerPage}
+                  {index + 1 + (page - 1) * vehiclesPerPage}
                 </td>
                 <td className="p-3">
                   <Link
@@ -54,26 +60,6 @@ function VehicleList() {
             ))}
           </tbody>
         </table>
-      </div>
-
-      {/* کنترل صفحه‌بندی */}
-      <div className="flex justify-center mt-4">
-        {Array.from(
-          { length: Math.ceil(totalVehicles / vehiclesPerPage) },
-          (_, i) => (
-            <button
-              key={i + 1}
-              onClick={() => handlePageChange(i + 1)}
-              className={`px-4 py-2 mx-1 rounded-md shadow-2xl ${
-                currentPage === i + 1
-                  ? "bg-blue-300 text-gray-700"
-                  : "bg-gray-200 text-gray-700"
-              }`}
-            >
-              {i + 1}
-            </button>
-          )
-        )}
       </div>
     </div>
   );

@@ -39,91 +39,93 @@ const SingleVehicle = () => {
       </div>
     );
   }
-  return (
-    <div className="w-full p-4 shadow-lg overflow-hidden rounded-2xl ">
-      <div className="flex justify-between ">
-        <h2 className="text-xl font-bold text-center mb-4 ">
-          Vehicle Information
-        </h2>
-        <BackButton onClick={handleBack} className="mb-2" />
-      </div>
 
-      <table className="w-full border-collapse bg-white rounded-xl">
-        <tbody>
-          <tr className="hover:bg-gray-100">
-            <th className="bg-primary p-3 text-left">VIN</th>
-            <td className="p-3 border-b border-gray-300 text-gray-700">
-              {vehicle.vin}
-            </td>
-          </tr>
-          <tr className="bg-gray-50 hover:bg-gray-100">
-            <th className="bg-primary p-3 text-left">Plate</th>
-            <td className="p-3 border-b border-gray-300 text-gray-700">
-              {vehicle.plate}
-            </td>
-          </tr>
-          <tr className="hover:bg-gray-100">
-            <th className="bg-primary p-3 text-left">Fuel Level</th>
-            <td className="p-3 border-b border-gray-300 text-gray-700">
-              {vehicle.fuelLevel}%
-            </td>
-          </tr>
-          <tr className="bg-gray-50 hover:bg-gray-100">
-            <th className="bg-primary p-3 text-left">Address</th>
-            <td className="p-3 border-b border-gray-300 text-gray-700">
-              {vehicle.address}
-            </td>
-          </tr>
-          <tr className="hover:bg-gray-100">
-            <th className="bg-primary p-3 text-left">Build Series</th>
-            <td className="p-3 border-b border-gray-300 text-gray-700">
-              {vehicle.buildSeries}
-            </td>
-          </tr>
-          <tr className="bg-gray-50 hover:bg-gray-100">
-            <th className="bg-primary p-3 text-left">Fuel Type</th>
-            <td className="p-3 border-b border-gray-300 text-gray-700">
-              {vehicle.fuelType}
-            </td>
-          </tr>
-          <tr className="hover:bg-gray-100">
-            <th className="bg-primary p-3 text-left">Primary Color</th>
-            <td className="p-3 border-b border-gray-300 text-gray-700">
-              {vehicle.primaryColor}
-            </td>
-          </tr>
-          <tr className="bg-gray-50 hover:bg-gray-100">
-            <th className="bg-primary p-3 text-left">Secondary Color</th>
-            <td className="p-3 border-b border-gray-300 text-gray-700">
-              {vehicle.secondaryColor}
-            </td>
-          </tr>
-          <tr className="hover:bg-gray-100">
-            <th className="bg-primary p-3 text-left">Charging</th>
-            <td className="p-3 border-b border-gray-300 text-gray-700">
-              {vehicle.charging ? "Yes" : "No"}
-            </td>
-          </tr>
-          <tr className="bg-gray-50 hover:bg-gray-100">
-            <th className="bg-primary p-3 text-left">Free for Rental</th>
-            <td className="p-3 border-b border-gray-300 text-gray-700">
-              {vehicle.freeForRental ? "Yes" : "No"}
-            </td>
-          </tr>
-          <tr className="hover:bg-gray-100">
-            <th className="bg-primary p-3 text-left">Hardware Version</th>
-            <td className="p-3 border-b border-gray-300 text-gray-700">
-              {vehicle.hardwareVersion}
-            </td>
-          </tr>
-          <tr className="bg-gray-50 hover:bg-gray-100">
-            <th className="bg-primary p-3 text-left">Global Version</th>
-            <td className="p-3  text-gray-700 rounded-b-xl">
-              {vehicle.globalVersion}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  return (
+    <div className=" flex flex-col justify-center h-[60vh] w-full p-0">
+      <div className="flex-grow items-center overflow-y-auto rounded-lg h-full shadow-lg mx-12">
+        <table className="w-full border-collapse bg-white">
+          <thead className="sticky top-0 bg-blue-100 text-gray-700">
+            <tr>
+              <th className="p-3 text-left">Properties</th>
+              <th className="p-3 text-left">Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="hover:bg-gray-100">
+              <th className="p-3 text-left">VIN</th>
+              <td className="p-3 border-b border-gray-300 text-gray-700">
+                {vehicle.vin}
+              </td>
+            </tr>
+            <tr className="bg-gray-50 hover:bg-gray-100">
+              <th className=" p-3 text-left">Plate</th>
+              <td className="p-3 border-b border-gray-300 text-gray-700">
+                {vehicle.plate}
+              </td>
+            </tr>
+            <tr className="hover:bg-gray-100">
+              <th className=" p-3 text-left">Fuel Level</th>
+              <td className="p-3 border-b border-gray-300 text-gray-700">
+                {vehicle.fuelLevel}%
+              </td>
+            </tr>
+            <tr className="bg-gray-50 hover:bg-gray-100">
+              <th className=" p-3 text-left">Address</th>
+              <td className="p-3 border-b border-gray-300 text-gray-700">
+                {vehicle.address}
+              </td>
+            </tr>
+            <tr className="hover:bg-gray-100">
+              <th className=" p-3 text-left">Build Series</th>
+              <td className="p-3 border-b border-gray-300 text-gray-700">
+                {vehicle.buildSeries}
+              </td>
+            </tr>
+            <tr className="bg-gray-50 hover:bg-gray-100">
+              <th className=" p-3 text-left">Fuel Type</th>
+              <td className="p-3 border-b border-gray-300 text-gray-700">
+                {vehicle.fuelType}
+              </td>
+            </tr>
+            <tr className="hover:bg-gray-100">
+              <th className=" p-3 text-left">Primary Color</th>
+              <td className="p-3 border-b border-gray-300 text-gray-700">
+                {vehicle.primaryColor}
+              </td>
+            </tr>
+            <tr className="bg-gray-50 hover:bg-gray-100">
+              <th className=" p-3 text-left">Secondary Color</th>
+              <td className="p-3 border-b border-gray-300 text-gray-700">
+                {vehicle.secondaryColor}
+              </td>
+            </tr>
+            <tr className="hover:bg-gray-100">
+              <th className=" p-3 text-left">Charging</th>
+              <td className="p-3 border-b border-gray-300 text-gray-700">
+                {vehicle.charging ? "Yes" : "No"}
+              </td>
+            </tr>
+            <tr className="bg-gray-50 hover:bg-gray-100">
+              <th className=" p-3 text-left">Free for Rental</th>
+              <td className="p-3 border-b border-gray-300 text-gray-700">
+                {vehicle.freeForRental ? "Yes" : "No"}
+              </td>
+            </tr>
+            <tr className="hover:bg-gray-100">
+              <th className=" p-3 text-left">Hardware Version</th>
+              <td className="p-3 border-b border-gray-300 text-gray-700">
+                {vehicle.hardwareVersion}
+              </td>
+            </tr>
+            <tr className="bg-gray-50 hover:bg-gray-100">
+              <th className=" p-3 text-left">Global Version</th>
+              <td className="p-3  text-gray-700 rounded-b-xl">
+                {vehicle.globalVersion}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
