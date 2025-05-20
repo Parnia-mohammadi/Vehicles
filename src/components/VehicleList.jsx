@@ -26,7 +26,7 @@ function VehicleList() {
 
   return (
     <div className="w-full h-[60vh] flex flex-col justify-center">
-      <div className="flex-grow h-full items-center overflow-y-auto rounded-lg ml-12">
+      <div className="flex-grow h-full items-center overflow-y-auto rounded-lg mx-12">
         <table className="w-full border-collapse bg-white">
           <thead className="sticky top-0 bg-blue-100 text-gray-700">
             <tr>
