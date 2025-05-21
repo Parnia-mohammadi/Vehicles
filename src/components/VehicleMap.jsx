@@ -2,7 +2,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useVehicles } from "../context/vehiclesProvider";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 function VehicleMap() {
   const { vehicles, currentVehicle, setCurrentVehicle } = useVehicles();
@@ -55,7 +55,11 @@ function VehicleMap() {
 
 function ChangeMapCenter({ position, zoom }) {
   const map = useMap();
-  map.setView(position, zoom);
+  useEffect(() => {
+    if (position) {
+      map.setView(position, zoom);
+    }
+  }, [position, zoom, map]);
   return null;
 }
 
