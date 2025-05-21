@@ -31,14 +31,8 @@ function VehicleMap() {
   }, [location.pathname, currentVehicle]);
 
   return (
-    <MapContainer
-      center={center}
-      zoom={zoom}
-      className="w-[45%] h-[60vh] rounded-lg md:mx-12"
-    >
-      <ChangeMapCenter position={center} zoom={zoom} />
+    <MapContainer center={center} zoom={zoom} className="map-container">
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-
       {vehicles?.map((vehicle) => (
         <VehicleMarker
           key={vehicle.plate}
@@ -49,6 +43,7 @@ function VehicleMap() {
           }}
         />
       ))}
+      <ChangeMapCenter position={center} zoom={zoom} />
     </MapContainer>
   );
 }

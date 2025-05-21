@@ -3,7 +3,7 @@ import { forwardRef } from "react";
 const Table = forwardRef(
   ({ headers, data, rowKey, rowClass, renderRow }, ref) => {
     return (
-      <div className="container">
+      <div className="self-container">
         <div className="table-container no-scrollbar">
           <table className="table">
             <thead className="table-header">

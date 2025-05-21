@@ -17,9 +17,11 @@ const SingleVehicle = () => {
     currentVehicle: vehicle,
   } = useVehicles();
   const navigate = useNavigate();
-  const filteredData = Object.entries(vehicle).filter(
-    ([key]) => key !== "geoCoordinate" && key !== "id"
-  );
+  const filteredData = vehicle
+    ? Object.entries(vehicle).filter(
+        ([key]) => key !== "geoCoordinate" && key !== "id"
+      )
+    : [];
 
   const handleBack = () => {
     navigate("/vehicles");
@@ -40,9 +42,9 @@ const SingleVehicle = () => {
   if (isLoading) return <Loader />;
   if (!vehicle) {
     return (
-      <div className="flex flex-col items-center dark:text-white">
-        <p>⚠ Vehicle not found</p>
-        <BackButton onClick={handleBack} className="py-2 my-2 px-4" />
+      <div className="self-container rounded-lg items-center shadow-2xl dark:text-white">
+        <p className="text-xl">⚠ Vehicle not found</p>
+        <BackButton onClick={handleBack} />
       </div>
     );
   }
