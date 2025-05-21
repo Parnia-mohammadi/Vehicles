@@ -5,6 +5,7 @@ import Pagination from "../ui/Pagination";
 import { useVehicles } from "../context/vehiclesProvider";
 import { loadFromCache } from "../services/cacheService";
 import { useMemo } from "react";
+import ThemeToggleButton from "../ui/ThemeToggleButton";
 
 function AppHeader({ isVehicleListPage }) {
   return (
@@ -29,7 +30,7 @@ function AppHeader({ isVehicleListPage }) {
               <Undo2 size={20} />
             </Link>
           )}
-          {/* <ThemeToggleButton /> */}
+          <ThemeToggleButton />
         </nav>
       </div>
     </header>
