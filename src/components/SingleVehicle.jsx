@@ -4,6 +4,9 @@ import { useVehicles } from "../context/vehiclesProvider";
 import toast from "react-hot-toast";
 import BackButton from "../ui/BackButton";
 import Loader from "./Loader";
+import Table from "../ui/Table";
+
+const headers = ["Properties", "Value"];
 
 const SingleVehicle = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,6 +17,9 @@ const SingleVehicle = () => {
     currentVehicle: vehicle,
   } = useVehicles();
   const navigate = useNavigate();
+  const filteredData = Object.entries(vehicle).filter(
+    ([key]) => key !== "geoCoordinate" && key !== "id"
+  );
 
   const handleBack = () => {
     navigate("/vehicles");
@@ -42,41 +48,28 @@ const SingleVehicle = () => {
   }
 
   return (
-    <div className=" flex flex-col justify-center h-[60vh] w-full p-0">
-      <div className="flex-grow items-center overflow-y-auto no-scrollbar rounded-lg h-full shadow-lg mx-12">
-        <table className="w-full border-collapse bg-white">
-          <thead className="sticky top-0 bg-blue-100 text-gray-700">
-            <tr>
-              <th className="p-3 text-left">Properties</th>
-              <th className="p-3 text-left">Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(vehicle)
-              .filter(([key]) => key !== "geoCoordinate" && key !== "id")
-              .map(([key, value]) => (
-                <tr
-                  key={key}
-                  className="border-b border-gray-300 hover:bg-gray-100"
-                >
-                  <th className="p-3 text-left capitalize">
-                    {key.replace(/([A-Z])/g, " $1")}
-                  </th>
-                  <td className="p-3 text-gray-700">
-                    {typeof value === "boolean"
-                      ? value
-                        ? "Yes"
-                        : "No"
-                      : key === "fuelLevel"
-                      ? `${value}%`
-                      : value}
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <Table
+      headers={headers}
+      data={filteredData}
+      rowKey={(item) => item[0]}
+      rowClass={() => ""}
+      renderRow={([key, value]) => (
+        <>
+          <th className="table-cell capitalize">
+            {key.replace(/([A-Z])/g, " $1")}
+          </th>
+          <td className="table-cell">
+            {typeof value === "boolean"
+              ? value
+                ? "Yes"
+                : "No"
+              : key === "fuelLevel"
+              ? `${value}%`
+              : value}
+          </td>
+        </>
+      )}
+    />
   );
 };
 

@@ -19,7 +19,8 @@ function AppHeader({ isVehicleListPage }) {
               : "Single Vehicle Data Overview"}
           </span>
         </h1>
-        <nav className="space-x-6 flex">
+        <nav className="space-x-6 flex items-center justify-center">
+          <ThemeToggleButton />
           <Link to="/" className="hover:underline flex gap-x-1">
             <House size={20} />
             Home
@@ -30,7 +31,6 @@ function AppHeader({ isVehicleListPage }) {
               <Undo2 size={20} />
             </Link>
           )}
-          <ThemeToggleButton />
         </nav>
       </div>
     </header>
@@ -41,7 +41,7 @@ function InfoMessage({ isVehicleListPage }) {
   return (
     <p className="text-xl text-center my-6 font-bold text-gray-700 dark:text-gray-200">
       {isVehicleListPage
-        ? "Choose your vehicle from the map or the list, to show its properties."
+        ? "Choose your vehicle from the map or the list, to show its properties.You can scroll on the list"
         : "Now you can see the properties of your vehicle, Scroll to see data in the table."}
     </p>
   );
