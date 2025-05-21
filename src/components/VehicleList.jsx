@@ -10,15 +10,15 @@ function VehicleList() {
   const { vehicles, page, setCurrentVehicle, isLoading, currentVehicle } =
     useVehicles();
   const vehiclesPerPage = 50;
-  const rowRefs = useRef([]);
+  const rowsRef = useRef([]);
 
   useEffect(() => {
     if (!currentVehicle) return;
     const vehicleIndex = vehicles.findIndex(
       (v) => v.vin === currentVehicle?.vin
     );
-    if (vehicleIndex !== -1 && rowRefs.current[vehicleIndex]) {
-      rowRefs.current[vehicleIndex].scrollIntoView({
+    if (vehicleIndex !== -1 && rowsRef.current[vehicleIndex]) {
+      rowsRef.current[vehicleIndex].scrollIntoView({
         behavior: "smooth",
         block: "center",
       });
@@ -52,6 +52,7 @@ function VehicleList() {
           <td className="table-cell">{vehicle.buildSeries}</td>
         </>
       )}
+      ref={rowsRef}
     />
   );
 }

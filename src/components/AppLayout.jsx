@@ -9,24 +9,24 @@ import ThemeToggleButton from "../ui/ThemeToggleButton";
 
 function AppHeader({ isVehicleListPage }) {
   return (
-    <header className="w-full py-4 px-6 bg-black bg-opacity-70 shadow-lg text-white dark:bg-gray-900">
-      <div className="w-full mx-auto flex justify-between items-center px-6">
-        <h1 className="text-2xl font-bold tracking-wide">
+    <header className="app-header">
+      <div className="app-header-wraper">
+        <h1 className="page-title">
           🚗 Vehicle Tracking System :
-          <span className="text-xl font-semibold px-5">
+          <span className="sub-title">
             {isVehicleListPage
               ? "Vehicles List"
               : "Single Vehicle Data Overview"}
           </span>
         </h1>
-        <nav className="space-x-6 flex items-center justify-center">
+        <nav className="nav-links">
           <ThemeToggleButton />
-          <Link to="/" className="hover:underline flex gap-x-1">
+          <Link to="/" className="nav-link">
             <House size={20} />
             Home
           </Link>
           {!isVehicleListPage && (
-            <Link to="/vehicles" className="hover:underline flex gap-x-1">
+            <Link to="/vehicles" className="nav-link">
               Back to Vehicles List
               <Undo2 size={20} />
             </Link>
@@ -39,7 +39,7 @@ function AppHeader({ isVehicleListPage }) {
 
 function InfoMessage({ isVehicleListPage }) {
   return (
-    <p className="text-xl text-center my-6 font-bold text-gray-700 dark:text-gray-200">
+    <p className="page-message">
       {isVehicleListPage
         ? "Choose your vehicle from the map or the list, to show its properties.You can scroll on the list"
         : "Now you can see the properties of your vehicle, Scroll to see data in the table."}
@@ -59,14 +59,14 @@ function AppLayout() {
   };
 
   return (
-    <div className="h-screen flex flex-col justify-between dark:bg-gray-900 transition-colors duration-300">
+    <div className="app-container">
       <AppHeader isVehicleListPage={isVehicleListPage} />
 
-      <main className="flex-1 bg-gradient-to-br from-gray-300 via-gray-500 to-gray-900 dark:from-gray-700 dark:via-gray-900 dark:to-black">
+      <main className="main-content">
         <InfoMessage isVehicleListPage={isVehicleListPage} />
 
-        <div className="flex items-center justify-center px-4">
-          <div className="w-[50%] max-w-[700px]">
+        <div className="layout-wrapper">
+          <div className="outlet-wrapper">
             <Outlet />
           </div>
           <VehicleMap />
@@ -82,7 +82,7 @@ function AppLayout() {
         )}
       </main>
 
-      <footer className="w-full py-4 text-white bg-black bg-opacity-70 text-center text-sm dark:bg-gray-800">
+      <footer className="footer">
         Developed by <span className="font-semibold">PARNIA MOHAMMADI</span>
       </footer>
     </div>
