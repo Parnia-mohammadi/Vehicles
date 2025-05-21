@@ -34,7 +34,7 @@ const SingleVehicle = () => {
   if (isLoading) return <Loader />;
   if (!vehicle) {
     return (
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center dark:text-white">
         <p>⚠ Vehicle not found</p>
         <BackButton onClick={handleBack} className="py-2 my-2 px-4" />
       </div>
@@ -43,7 +43,7 @@ const SingleVehicle = () => {
 
   return (
     <div className=" flex flex-col justify-center h-[60vh] w-full p-0">
-      <div className="flex-grow items-center overflow-y-auto rounded-lg h-full shadow-lg mx-12">
+      <div className="flex-grow items-center overflow-y-auto no-scrollbar rounded-lg h-full shadow-lg mx-12">
         <table className="w-full border-collapse bg-white">
           <thead className="sticky top-0 bg-blue-100 text-gray-700">
             <tr>

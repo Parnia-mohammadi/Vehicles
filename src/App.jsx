@@ -6,19 +6,22 @@ import AppLayout from "./components/AppLayout";
 import SingleVehicle from "./components/SingleVehicle";
 import { Toaster } from "react-hot-toast";
 import VehiclesProvider from "./context/vehiclesProvider";
+import { ThemeProvider } from "./context/ThemeProvider";
 
 function App() {
   return (
-    <VehiclesProvider>
-      <Toaster />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/vehicles" element={<AppLayout />}>
-          <Route index element={<VehicleList />} />
-          <Route path=":vin" element={<SingleVehicle />} />
-        </Route>
-      </Routes>
-    </VehiclesProvider>
+    <ThemeProvider>
+      <VehiclesProvider>
+        <Toaster />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/vehicles" element={<AppLayout />}>
+            <Route index element={<VehicleList />} />
+            <Route path=":vin" element={<SingleVehicle />} />
+          </Route>
+        </Routes>
+      </VehiclesProvider>
+    </ThemeProvider>
   );
 }
 
