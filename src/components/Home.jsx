@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -13,7 +13,6 @@ function Home() {
         </p>
       </div>
 
-      {/* Developer Signature */}
       <div className="mt-10 bg-black px-6 py-4 rounded-lg shadow-lg animate-pulse">
         <p className="text-xl font-semibold tracking-wider">
           Developed by: PARNIA MOHAMMADI
