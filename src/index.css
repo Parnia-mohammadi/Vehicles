@@ -18,19 +18,19 @@
     @apply w-full h-[60vh] flex flex-col justify-center p-0;
   }
 
-  .table-container {
+  .mytable-container {
     @apply flex-grow items-center overflow-y-auto rounded-lg h-full shadow-lg mx-12;
   }
 
-  .table {
+  .mytable {
     @apply w-full border-collapse bg-white;
   }
 
-  .table-header {
+  .mytable-header {
     @apply sticky top-0 bg-blue-100 text-gray-700;
   }
 
-  .table-row {
+  .mytable-row {
     @apply border-b border-gray-300 hover:bg-gray-100;
   }
 
@@ -38,7 +38,7 @@
     @apply bg-indigo-100;
   }
 
-  .table-cell {
+  .mytable-cell {
     @apply p-3 text-left;
   }
 

@@ -7,15 +7,25 @@ import { useCurrentVehicle } from "../../context/vehiclesProvider";
 
 function VehicleMap() {
   const { data: vehicles } = useVehicles();
-  const { currentVehicle, setCurrentVehicle } = useCurrentVehicle();
+  const { currentVehicle, setCurrentVehicle, setPage } = useCurrentVehicle();
   const location = useLocation();
   const navigate = useNavigate();
+  const vehiclesOfPerPage = 50;
+
+  const pageOfCurrentVehicle = useMemo(() => {
+    if (currentVehicle && vehicles) {
+      return Math.ceil(
+        vehicles.findIndex((v) => v.vin === currentVehicle.vin) /
+          vehiclesOfPerPage
+      );
+    }
+  }, [currentVehicle, vehicles]);
 
   const { center, zoom } = useMemo(() => {
     if (location.pathname === "/vehicles") {
       return {
         center: [53.5511, 9.9937],
-        zoom: 12,
+        zoom: 11,
       };
     } else if (currentVehicle) {
       return {
@@ -28,9 +38,13 @@ function VehicleMap() {
     }
     return {
       center: [53.5511, 9.9937],
-      zoom: 12,
+      zoom: 11,
     };
   }, [location.pathname, currentVehicle]);
+
+  useEffect(() => {
+    if (pageOfCurrentVehicle) setPage(pageOfCurrentVehicle);
+  }, [currentVehicle, vehicles]);
 
   return (
     <MapContainer center={center} zoom={zoom} className="map-container">

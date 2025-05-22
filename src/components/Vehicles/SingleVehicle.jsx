@@ -5,6 +5,7 @@ import Table from "../../ui/Table";
 import { useVehicles } from "../../hooks/useVehicles";
 import { useCurrentVehicle } from "../../context/vehiclesProvider";
 import Loader from "../../ui/Loader";
+import BatteryLevel from "../../ui/BatteryLevel";
 
 const headers = ["Properties", "Value"];
 
@@ -40,17 +41,28 @@ const SingleVehicle = () => {
       rowClass={() => ""}
       renderRow={([key, value]) => (
         <>
-          <th className="table-cell capitalize">
+          <th className="mytable-cell capitalize">
             {key.replace(/([A-Z])/g, " $1")}
           </th>
-          <td className="table-cell">
-            {typeof value === "boolean"
-              ? value
-                ? "Yes"
-                : "No"
-              : key === "fuelLevel"
-              ? `${value}%`
-              : value}
+          <td className="mytable-cell">
+            {typeof value === "boolean" ? (
+              value ? (
+                "Yes"
+              ) : (
+                "No"
+              )
+            ) : key === "fuelLevel" ? (
+              <div className="flex items-center gap-4">
+                <p>{value}%</p>
+                <BatteryLevel
+                  fuelLevel={value}
+                  key={key}
+                  className="-rotate-90"
+                />
+              </div>
+            ) : (
+              value
+            )}
           </td>
         </>
       )}

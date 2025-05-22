@@ -1,13 +1,14 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { Link } from "react-router-dom";
 import Loader from "../../ui/Loader";
 import Table from "../../ui/Table";
 import { useVehicles } from "../../hooks/useVehicles";
 import Error from "../../ui/Error";
 import { useCurrentVehicle } from "../../context/vehiclesProvider";
-import { MousePointerClick } from "lucide-react";
+import { BatteryChargingIcon, MousePointerClick } from "lucide-react";
+import BatteryLevel from "../../ui/BatteryLevel";
 
-const headers = ["Plate", "Address", "Free For Rental"];
+const headers = ["Plate", "Fuel Type", "Address"];
 
 function VehicleList() {
   const { page, setCurrentVehicle, currentVehicle } = useCurrentVehicle();
@@ -15,7 +16,7 @@ function VehicleList() {
   const vehiclesPerPage = 50;
   const rowRef = useRef([]);
 
-  const fetchVehiclesOfEachPage = useCallback(() => {
+  const fetchedVehiclesOfEachPage = useMemo(() => {
     if (isLoading || !vehicles) return [];
     const allVehiclesLength = vehicles.length;
     const start = (page - 1) * vehiclesPerPage;
@@ -29,11 +30,13 @@ function VehicleList() {
 
   useEffect(() => {
     if (!currentVehicle || !vehicles) return;
-    const vehicleIndex = vehicles.findIndex(
-      (v) => v.vin === currentVehicle?.vin
+    const indexOfVehicle = vehicles.findIndex(
+      (v) => v.vin === currentVehicle.vin
     );
-    if (vehicleIndex !== -1 && rowRef.current[vehicleIndex]) {
-      rowRef.current[vehicleIndex].scrollIntoView({
+    const vehicleIndexOfEachPage = indexOfVehicle % vehiclesPerPage;
+
+    if (indexOfVehicle !== -1 && rowRef.current[vehicleIndexOfEachPage]) {
+      rowRef.current[vehicleIndexOfEachPage].scrollIntoView({
         behavior: "smooth",
         block: "center",
       });
@@ -46,15 +49,21 @@ function VehicleList() {
   return (
     <Table
       headers={headers}
-      data={fetchVehiclesOfEachPage()}
+      data={fetchedVehiclesOfEachPage}
       rowKey="vin"
       rowClass={(vehicle) =>
         vehicle.vin === currentVehicle?.vin ? "active-row" : ""
       }
       renderRow={(vehicle) => (
         <>
-          <td className="table-cell">{vehicle.plate}</td>
-          <td className="table-cell w-fit">
+          <td className="mytable-cell">{vehicle.plate}</td>
+          <td className="mytable-cell">
+            <div className="flex items-center justify-center gap-1">
+              <p>{vehicle.fuelType}</p>
+              <BatteryLevel fuelLevel={vehicle.fuelLevel} />
+            </div>
+          </td>
+          <td className="mytable-cell w-fit">
             <Link
               to={`/vehicles/${vehicle.vin}`}
               onClick={() => setCurrentVehicle(vehicle)}
@@ -64,7 +73,6 @@ function VehicleList() {
               <MousePointerClick size={20} />
             </Link>
           </td>
-          <td className="table-cell">{vehicle.freeForRental ? "Yes" : "No"}</td>
         </>
       )}
       ref={rowRef}

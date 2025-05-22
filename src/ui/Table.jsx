@@ -4,12 +4,12 @@ const Table = forwardRef(
   ({ headers, data, rowKey, rowClass, renderRow }, ref) => {
     return (
       <div className="self-container">
-        <div className="table-container no-scrollbar">
-          <table className="table">
-            <thead className="table-header">
+        <div className="mytable-container no-scrollbar">
+          <table className="mytable">
+            <thead className="mytable-header">
               <tr className="text-nowrap">
                 {headers.map((header) => (
-                  <th key={header} className="table-cell">
+                  <th key={header} className="mytable-cell z-50">
                     <p className="w-fit">{header}</p>
                   </th>
                 ))}
@@ -19,7 +19,7 @@ const Table = forwardRef(
               {data.map((item, index) => (
                 <tr
                   key={item[rowKey] || index}
-                  className={`table-row text-nowrap  ${rowClass(item)}`}
+                  className={`mytable-row text-nowrap  ${rowClass(item)}`}
                   ref={ref ? (el) => (ref.current[index] = el) : null}
                 >
                   {renderRow(item, index)}
