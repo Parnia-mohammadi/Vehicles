@@ -7,10 +7,10 @@ const Table = forwardRef(
         <div className="table-container no-scrollbar">
           <table className="table">
             <thead className="table-header">
-              <tr>
+              <tr className="text-nowrap">
                 {headers.map((header) => (
                   <th key={header} className="table-cell">
-                    {header}
+                    <p className="w-fit">{header}</p>
                   </th>
                 ))}
               </tr>
@@ -19,7 +19,7 @@ const Table = forwardRef(
               {data.map((item, index) => (
                 <tr
                   key={item[rowKey] || index}
-                  className={`table-row ${rowClass(item)}`}
+                  className={`table-row text-nowrap  ${rowClass(item)}`}
                   ref={ref ? (el) => (ref.current[index] = el) : null}
                 >
                   {renderRow(item, index)}

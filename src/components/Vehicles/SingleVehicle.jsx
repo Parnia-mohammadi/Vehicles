@@ -1,21 +1,16 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useVehicles } from "../context/vehiclesProvider";
-import toast from "react-hot-toast";
-import BackButton from "../ui/BackButton";
-import Loader from "./Loader";
-import Table from "../ui/Table";
+import { useNavigate } from "react-router-dom";
+import BackButton from "../../ui/BackButton";
+
+import Table from "../../ui/Table";
+import { useVehicles } from "../../hooks/useVehicles";
+import { useCurrentVehicle } from "../../context/vehiclesProvider";
+import Loader from "../../ui/Loader";
 
 const headers = ["Properties", "Value"];
 
 const SingleVehicle = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const { vin } = useParams();
-  const {
-    vehicles,
-    setCurrentVehicle,
-    currentVehicle: vehicle,
-  } = useVehicles();
+  const { isLoading } = useVehicles();
+  const { currentVehicle: vehicle } = useCurrentVehicle();
   const navigate = useNavigate();
   const filteredData = vehicle
     ? Object.entries(vehicle).filter(
@@ -26,18 +21,6 @@ const SingleVehicle = () => {
   const handleBack = () => {
     navigate("/vehicles");
   };
-
-  useEffect(() => {
-    setIsLoading(true);
-    try {
-      const vehicle = vehicles.find((v) => v.vin === vin);
-      setCurrentVehicle(vehicle);
-    } catch (err) {
-      toast.error(`single vehicle's fetch has problem: ${err.message}`);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [vin]);
 
   if (isLoading) return <Loader />;
   if (!vehicle) {

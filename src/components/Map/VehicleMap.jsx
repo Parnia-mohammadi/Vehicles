@@ -1,11 +1,13 @@
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { useVehicles } from "../context/vehiclesProvider";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useMemo } from "react";
+import { useVehicles } from "../../hooks/useVehicles";
+import { useCurrentVehicle } from "../../context/vehiclesProvider";
 
 function VehicleMap() {
-  const { vehicles, currentVehicle, setCurrentVehicle } = useVehicles();
+  const { data: vehicles } = useVehicles();
+  const { currentVehicle, setCurrentVehicle } = useCurrentVehicle();
   const location = useLocation();
   const navigate = useNavigate();
 
