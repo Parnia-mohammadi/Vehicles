@@ -9,7 +9,7 @@ const Table = forwardRef(
             <thead className="mytable-header">
               <tr className="text-nowrap">
                 {headers.map((header) => (
-                  <th key={header} className="mytable-cell z-50">
+                  <th key={header} className="mytable-cell">
                     <p className="w-fit">{header}</p>
                   </th>
                 ))}

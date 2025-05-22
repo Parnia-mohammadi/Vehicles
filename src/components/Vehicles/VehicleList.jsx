@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Link } from "react-router-dom";
 import Loader from "../../ui/Loader";
 import Table from "../../ui/Table";
 import { useVehicles } from "../../hooks/useVehicles";
 import Error from "../../ui/Error";
 import { useCurrentVehicle } from "../../context/vehiclesProvider";
-import { BatteryChargingIcon, MousePointerClick } from "lucide-react";
 import BatteryLevel from "../../ui/BatteryLevel";
 
 const headers = ["Plate", "Fuel Type", "Address"];
@@ -70,7 +69,6 @@ function VehicleList() {
               className="link flex items-center gap-1 max-w-1/2"
             >
               <p className="truncate">{vehicle.address}</p>
-              <MousePointerClick size={20} />
             </Link>
           </td>
         </>

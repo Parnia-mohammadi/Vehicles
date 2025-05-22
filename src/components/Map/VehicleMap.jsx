@@ -4,9 +4,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useMemo } from "react";
 import { useVehicles } from "../../hooks/useVehicles";
 import { useCurrentVehicle } from "../../context/vehiclesProvider";
+// import MarkerClusterGroup from "react-leaflet-markercluster";
+import Loader from "../../ui/Loader";
 
 function VehicleMap() {
-  const { data: vehicles } = useVehicles();
+  const { data: vehicles, isLoading } = useVehicles();
   const { currentVehicle, setCurrentVehicle, setPage } = useCurrentVehicle();
   const location = useLocation();
   const navigate = useNavigate();
@@ -46,6 +48,8 @@ function VehicleMap() {
     if (pageOfCurrentVehicle) setPage(pageOfCurrentVehicle);
   }, [currentVehicle, vehicles]);
 
+  if (isLoading) return <Loader />;
+
   return (
     <MapContainer center={center} zoom={zoom} className="map-container">
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
@@ -61,6 +65,22 @@ function VehicleMap() {
       ))}
       <ChangeMapCenter position={center} zoom={zoom} />
     </MapContainer>
+    // <MapContainer center={center} zoom={zoom} className="map-container">
+    //   <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+    //   <MarkerClusterGroup>
+    //     {vehicles.map((vehicle) => (
+    //       <VehicleMarker
+    //         key={vehicle.plate}
+    //         vehicle={vehicle}
+    //         onClick={() => {
+    //           setCurrentVehicle(vehicle);
+    //           navigate(`/vehicles/${vehicle.vin}`);
+    //         }}
+    //       />
+    //     ))}
+    //     <ChangeMapCenter position={center} zoom={zoom} />
+    //   </MarkerClusterGroup>
+    // </MapContainer>
   );
 }
 

@@ -54,11 +54,7 @@ const SingleVehicle = () => {
             ) : key === "fuelLevel" ? (
               <div className="flex items-center gap-4">
                 <p>{value}%</p>
-                <BatteryLevel
-                  fuelLevel={value}
-                  key={key}
-                  className="-rotate-90"
-                />
+                <BatteryLevel fuelLevel={value} className="-rotate-90" />
               </div>
             ) : (
               value
