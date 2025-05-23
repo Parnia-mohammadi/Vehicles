@@ -1,7 +1,7 @@
 #🚀 Vehicle Tracking System
 Welcome to the Vehicle Tracking System, a modern solution for efficiently tracking and managing vehicles. This project provides an interactive and visual experience, utilizing maps and dynamic data visualization to help users filter data and find specific vehicles.
 This project has two branches:
-1️⃣ The master branch uses React Query (TanStack) for efficient caching, reducing unnecessary requests to the server.
+1️⃣ The master branch uses React Query (TanStack) for efficient caching, reducing unnecessary requests to the server and it is more responsive.
 2️⃣ The other branch leverages Context API for caching data in localStorage, displaying only 50 vehicles per page.
 🔍 Filtering & Searching
 
