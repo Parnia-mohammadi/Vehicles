@@ -1,7 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { useCurrentVehicle } from "../context/vehiclesProvider";
+import { useCurrentVehicle } from "../../context/vehiclesProvider";
+import { schema } from "./schema";
 
 const fuelTypes = ["Gasoline", "Diesel", "Super_Plus"];
 const buildSeries = ["C453", "W176", "X156", "C453", "AMG1", "C117"];
@@ -14,6 +15,7 @@ function SearchForm({ setIsOpen }) {
     handleSubmit,
     formState: { errors },
   } = useForm({
+    resolver: yupResolver(schema),
     defaultValues: {
       address: "",
       globalVersion: "",
@@ -23,9 +25,6 @@ function SearchForm({ setIsOpen }) {
       fuelLevel: "",
     },
   });
-  //   } = useForm({
-  //     resolver: yupResolver(schema),
-  //   });
 
   const onSubmit = (data) => {
     const encodedParams = createSearchParams(data);
@@ -78,7 +77,6 @@ function SearchForm({ setIsOpen }) {
         {errors.plate && <p className="text-red-600">{errors.plate.message}</p>}
       </div>
       <div className="w-full flex flex-col items-start xl:flex-center xl:items-center xl:flex-row xl:gap-6 gap-2 p-2 xl:*:w-1/2 *:w-full">
-        {/* buildSeries */}
         <div className="flex items-center justify-between text-nowrap py-3">
           <label htmlFor="buildSeries">Choose a buildSerie :</label>
           <select
@@ -110,7 +108,6 @@ function SearchForm({ setIsOpen }) {
           )}
         </div>
       </div>
-      {/* fuelType */}
       <p className=" w-full mt-2">Fuel Type :</p>
       <div className="flex items-start justify-center gap-x-2.5 md:gap-x-3 xl:gap-x-4 text-nowrap">
         {fuelTypes.map((type, index) => (

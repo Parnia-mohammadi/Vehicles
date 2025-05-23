@@ -7,7 +7,7 @@ import AppHeader from "./AppHeader";
 import InfoMessage from "./InfoMessage";
 import Footer from "./Footer";
 import Modal from "../../ui/Modal";
-import SearchForm from "../SearchForm";
+import SearchForm from "../form/SearchForm";
 
 function AppLayout() {
   const location = useLocation();
