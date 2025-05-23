@@ -25,8 +25,8 @@ export function useFilteredVehicles() {
     if (!hasValidFilter) return vehicles;
 
     return vehicles.filter((vehicle) => {
-      return Object.entries(filters).some(([key, value]) => {
-        if (value === null || value === "" || value === 0) return false;
+      return Object.entries(filters).every(([key, value]) => {
+        if (value === null || value === "" || value === 0) return true;
         return typeof vehicle[key] === "string"
           ? vehicle[key].toLowerCase().includes(value)
           : key === "fuelLevel"

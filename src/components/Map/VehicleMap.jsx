@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useVehicles } from "../../hooks/useVehicles";
 import { useCurrentVehicle } from "../../context/vehiclesProvider";
 // import MarkerClusterGroup from "react-leaflet-markercluster";
@@ -59,6 +59,7 @@ function VehicleMap() {
         <VehicleMarker
           key={vehicle.plate}
           vehicle={vehicle}
+          currentVehicle={currentVehicle}
           onClick={() => {
             setCurrentVehicle(vehicle);
             navigate(`/vehicles/${vehicle.vin}`);
@@ -96,9 +97,20 @@ function ChangeMapCenter({ position, zoom }) {
   return null;
 }
 
-function VehicleMarker({ vehicle, onClick }) {
+function VehicleMarker({ vehicle, currentVehicle, onClick }) {
+  const markerRef = useRef(null);
+  useEffect(() => {
+    if (
+      currentVehicle &&
+      currentVehicle.vin === vehicle.vin &&
+      markerRef.current
+    ) {
+      markerRef.current.openPopup();
+    }
+  }, [currentVehicle, vehicle]);
   return (
     <Marker
+      ref={markerRef}
       position={[
         vehicle.geoCoordinate.latitude,
         vehicle.geoCoordinate.longitude,

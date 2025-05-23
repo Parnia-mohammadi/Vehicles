@@ -13,6 +13,7 @@ function SearchForm({ setIsOpen }) {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -25,6 +26,8 @@ function SearchForm({ setIsOpen }) {
       fuelLevel: "",
     },
   });
+
+  const MinFuelLevel = watch("fuelLevel");
 
   const onSubmit = (data) => {
     const encodedParams = createSearchParams(data);
@@ -76,7 +79,7 @@ function SearchForm({ setIsOpen }) {
         />
         {errors.plate && <p className="text-red-600">{errors.plate.message}</p>}
       </div>
-      <div className="w-full flex flex-col items-start xl:flex-center xl:items-center xl:flex-row xl:gap-6 gap-2 p-2 xl:*:w-1/2 *:w-full">
+      <div className="w-full flex flex-col items-start xl:flex-center xl:items-center xl:flex-row xl:gap-4 gap-2 p-2 xl:*:w-1/2 *:w-full">
         <div className="flex items-center justify-between text-nowrap py-3">
           <label htmlFor="buildSeries">Choose a buildSerie :</label>
           <select
@@ -94,7 +97,9 @@ function SearchForm({ setIsOpen }) {
         </div>
         {/* fuelLevel */}
         <div className="xl:flex-center flex justify-start gap-1.5">
-          <label htmlFor="fuelLevel">FuelLevel :</label>
+          <label htmlFor="fuelLevel" className="text-nowrap">
+            Minimum FuelLevel : {MinFuelLevel && <span>{MinFuelLevel}%</span>}
+          </label>
           <input
             type="range"
             id="fuelLevel"
@@ -123,8 +128,8 @@ function SearchForm({ setIsOpen }) {
               {...register("fuelType")}
             />
             <label htmlFor={type}> {type}</label>
-            {errors[type] && (
-              <p className="text-red-600">{errors[type].message}</p>
+            {errors.fuelType && (
+              <p className="text-red-600">{errors.fuelType.message}</p>
             )}
           </div>
         ))}
