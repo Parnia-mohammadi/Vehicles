@@ -6,22 +6,19 @@ import { useVehicles } from "../../hooks/useVehicles";
 import { useCurrentVehicle } from "../../context/vehiclesProvider";
 // import MarkerClusterGroup from "react-leaflet-markercluster";
 import Loader from "../../ui/Loader";
+import { useFilteredVehicles } from "../../hooks/useFilteredVehicles";
+import usePageOfCurrentVehicle from "../../hooks/usePageOfCurrentVehicle";
 
 function VehicleMap() {
-  const { data: vehicles, isLoading } = useVehicles();
+  const { isLoading } = useVehicles();
   const { currentVehicle, setCurrentVehicle, setPage } = useCurrentVehicle();
   const location = useLocation();
   const navigate = useNavigate();
-  const vehiclesOfPerPage = 50;
-
-  const pageOfCurrentVehicle = useMemo(() => {
-    if (currentVehicle && vehicles) {
-      return Math.ceil(
-        vehicles.findIndex((v) => v.vin === currentVehicle.vin) /
-          vehiclesOfPerPage
-      );
-    }
-  }, [currentVehicle, vehicles]);
+  const vehicles = useFilteredVehicles();
+  const pageOfCurrentVehicle = usePageOfCurrentVehicle({
+    currentVehicle,
+    vehicles,
+  });
 
   const { center, zoom } = useMemo(() => {
     if (location.pathname === "/vehicles") {

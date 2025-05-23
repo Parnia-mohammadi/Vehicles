@@ -1,9 +1,21 @@
-function Pagination({
-  currentPage,
-  handlePageChange,
-  totalVehicles,
-  vehiclesPerPage,
-}) {
+import { useMemo } from "react";
+import { useCurrentVehicle } from "../context/vehiclesProvider";
+import { useFilteredVehicles } from "../hooks/useFilteredVehicles";
+import { useVehicles } from "../hooks/useVehicles";
+
+function Pagination({}) {
+  const { page: currentPage, setPage } = useCurrentVehicle();
+  const vehicles = useFilteredVehicles();
+  const { isLoading } = useVehicles();
+  const totalVehicles = useMemo(
+    () => (!isLoading && vehicles ? vehicles.length : 0),
+    [vehicles, isLoading]
+  );
+  const vehiclesPerPage = 50;
+
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
   return (
     <div className="flex justify-center items-center my-6 space-x-2">
       {currentPage > 1 && (

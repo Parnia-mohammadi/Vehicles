@@ -1,8 +1,10 @@
 import { House, ScanSearch, Undo2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import ThemeToggleButton from "../../ui/ThemeToggleButton";
 
-export default function AppHeader({ isVehicleListPage,setIsOpen }) {
+export default function AppHeader({ isVehicleListPage, setIsOpen }) {
+  const [searchParams] = useSearchParams();
+
   return (
     <header className="app-header">
       <div className="app-header-wraper">
@@ -17,7 +19,7 @@ export default function AppHeader({ isVehicleListPage,setIsOpen }) {
             <House size={20} />
             Home
           </Link>
-          {!isVehicleListPage && (
+          {(!isVehicleListPage || searchParams.size !== 0) && (
             <Link to="/vehicles" className="nav-link">
               Back to Vehicles List
               <Undo2 size={20} />

@@ -6,14 +6,17 @@ import { useVehicles } from "../../hooks/useVehicles";
 import Error from "../../ui/Error";
 import { useCurrentVehicle } from "../../context/vehiclesProvider";
 import BatteryLevel from "../../ui/BatteryLevel";
+import { useFilteredVehicles } from "../../hooks/useFilteredVehicles";
+import NotFound from "../../ui/NotFound";
 
 const headers = ["Plate", "Fuel Type", "Address"];
 
 function VehicleList() {
   const { page, setCurrentVehicle, currentVehicle } = useCurrentVehicle();
-  const { data: vehicles = [], isLoading, error } = useVehicles();
+  const { isLoading, error } = useVehicles();
   const vehiclesPerPage = 50;
   const rowRef = useRef([]);
+  const vehicles = useFilteredVehicles();
 
   const fetchedVehiclesOfEachPage = useMemo(() => {
     if (isLoading || !vehicles) return [];
@@ -44,7 +47,7 @@ function VehicleList() {
 
   if (isLoading) return <Loader />;
   if (error) return <Error error={error} />;
-
+  if (vehicles.length === 0) return <NotFound />;
   return (
     <Table
       headers={headers}

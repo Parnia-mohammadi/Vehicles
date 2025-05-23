@@ -1,21 +1,37 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { createSearchParams, useNavigate } from "react-router-dom";
+import { useCurrentVehicle } from "../context/vehiclesProvider";
 
-const fuelTypes = ["Gasoline", "Diesel", "Super-Plus"];
-const buildSeries = ["C453", "W176", "X156", "C453", "AMG1"];
+const fuelTypes = ["Gasoline", "Diesel", "Super_Plus"];
+const buildSeries = ["C453", "W176", "X156", "C453", "AMG1", "C117"];
 
-function SearchForm() {
+function SearchForm({ setIsOpen }) {
+  const navigate = useNavigate();
+  const { setPage } = useCurrentVehicle();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      address: "",
+      globalVersion: "",
+      plate: "",
+      fuelType: "",
+      buildSeries: "",
+      fuelLevel: "",
+    },
+  });
   //   } = useForm({
   //     resolver: yupResolver(schema),
   //   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    const encodedParams = createSearchParams(data);
+    navigate({ pathname: "/vehicles", search: encodedParams.toString() });
+    setIsOpen(false);
+    setPage(1);
   };
 
   return (
@@ -64,11 +80,12 @@ function SearchForm() {
       <div className="w-full flex flex-col items-start xl:flex-center xl:items-center xl:flex-row xl:gap-6 gap-2 p-2 xl:*:w-1/2 *:w-full">
         {/* buildSeries */}
         <div className="flex items-center justify-between text-nowrap py-3">
-          <label for="buildSeries">Choose a buildSerie :</label>
+          <label htmlFor="buildSeries">Choose a buildSerie :</label>
           <select
             name="buildSeries"
             id="buildSeries"
             className="bg-slate-900 py-1 px-3"
+            {...register("buildSeries")}
           >
             {buildSeries.map((buildSerie, index) => (
               <option key={index} value={buildSerie} className="">
@@ -79,31 +96,38 @@ function SearchForm() {
         </div>
         {/* fuelLevel */}
         <div className="xl:flex-center flex justify-start gap-1.5">
-          <label for="fuelLevel">FuelLevel :</label>
+          <label htmlFor="fuelLevel">FuelLevel :</label>
           <input
             type="range"
             id="fuelLevel"
             name="fuelLevel"
             min="0"
             max="100"
+            {...register("fuelLevel")}
           />
+          {errors.fuelLevel && (
+            <p className="text-red-600">{errors.fuelLevel.message}</p>
+          )}
         </div>
       </div>
       {/* fuelType */}
       <p className=" w-full mt-2">Fuel Type :</p>
       <div className="flex items-start justify-center gap-x-2.5 md:gap-x-3 xl:gap-x-4 text-nowrap">
         {fuelTypes.map((type, index) => (
-          <div className=" border border-gray-400 rounded-md p-2 md:p-3">
+          <div
+            key={index}
+            className=" border border-gray-400 rounded-md p-2 md:p-3"
+          >
             <input
-              key={index}
               type="radio"
               name="fuelType"
               id={type}
+              value={type}
               {...register("fuelType")}
             />
             <label htmlFor={type}> {type}</label>
-            {errors["type"] && (
-              <p className="text-red-600">{errors["type"].message}</p>
+            {errors[type] && (
+              <p className="text-red-600">{errors[type].message}</p>
             )}
           </div>
         ))}
