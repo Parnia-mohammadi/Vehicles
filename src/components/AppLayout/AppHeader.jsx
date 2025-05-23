@@ -21,19 +21,19 @@ export default function AppHeader({ isVehicleListPage, setIsOpen }) {
               isVehicleListPage={isVehicleListPage}
             />
             <div
-              class="flex flex-col gap-y-[7px] md:hidden"
+              className="flex flex-col gap-y-[7px] md:hidden"
               onClick={handleNavbar}
             >
               <span
-                class={`hamburger-class ${
+                className={`hamburger-class ${
                   isNavOpen ? "-rotate-45 translate-y-[9px]" : ""
                 }`}
               ></span>
               <span
-                class={`hamburger-class ${isNavOpen ? "opacity-0" : ""}`}
+                className={`hamburger-class ${isNavOpen ? "opacity-0" : ""}`}
               ></span>
               <span
-                class={`hamburger-class ${
+                className={`hamburger-class ${
                   isNavOpen ? "rotate-45 -translate-y-[9px]" : ""
                 }`}
               ></span>
@@ -42,13 +42,13 @@ export default function AppHeader({ isVehicleListPage, setIsOpen }) {
         </div>
       </header>
       <div
-        class={`${
+        className={`${
           isNavOpen
-            ? "bg-gray-900 text-white w-full h-fit opacity-100 transition-all ease-in-out duration-1000 md:opacity-0"
+            ? "bg-gray-900 text-white w-full h-fit opacity-100 transition-all ease-in-out duration-1000 md:opacity-0 md:h-0"
             : "opacity-0 h-0"
         }`}
       >
-        <ul class="text-base text-gray-300 flex flex-col gap-y-4 p-4 *:gap-4 *:flex *:items-center *:justify-center *:w-full  *:hover:text-blue-400">
+        <ul className="text-base text-gray-300 flex flex-col gap-y-4 p-4 *:gap-4 *:flex *:items-center *:justify-center *:w-full  *:hover:text-blue-400">
           <li onClick={() => setIsOpen(true)}>
             <ScanSearch size={25} />
             <p>Search</p>
@@ -58,6 +58,9 @@ export default function AppHeader({ isVehicleListPage, setIsOpen }) {
               <House size={20} />
               <span>Home</span>
             </Link>
+          </li>
+          <li>
+            <ThemeToggleButton className="gap-x-4" />
           </li>
           {(!isVehicleListPage || searchParams.size !== 0) && (
             <li>
@@ -75,7 +78,7 @@ export default function AppHeader({ isVehicleListPage, setIsOpen }) {
 
 function Nav({ isVehicleListPage, searchParams }) {
   return (
-    <div className="hidden md:flex">
+    <div className="hidden md:flex md:items-center md:justify-between">
       <div className="gap-1 flex-center" onClick={() => setIsOpen(true)}>
         <ScanSearch size={25} />
         <p>Search</p>

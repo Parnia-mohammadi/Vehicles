@@ -1,13 +1,13 @@
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "../context/ThemeProvider";
 
-function ThemeToggleButton() {
+function ThemeToggleButton({ className = "" }) {
   const { theme, toggleTheme } = useTheme();
 
   return (
     <button
       onClick={() => toggleTheme()}
-      className="flex items-center gap-x-1 px-3 py-1 rounded-md text-sm hover:bg-white hover:text-black dark:hover:bg-gray-700 transition-all"
+      className={`flex items-center gap-x-1 px-3 py-1 rounded-md text-sm hover:bg-white hover:text-black dark:hover:bg-gray-700 transition-all ${className}`}
       aria-label="Toggle theme"
     >
       {theme === "dark" ? (
