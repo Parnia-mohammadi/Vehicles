@@ -2,12 +2,14 @@ import { Outlet, useLocation } from "react-router-dom";
 import VehicleMap from "../Map/VehicleMap";
 import Pagination from "../../ui/Pagination";
 import { useCurrentVehicle } from "../../context/vehiclesProvider";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import { useVehicles } from "../../hooks/useVehicles";
 import AppHeader from "./AppHeader";
 import InfoMessage from "./InfoMessage";
 import Footer from "./Footer";
+import Modal from "../../ui/Modal";
+import SearchForm from "../SearchForm";
 
 function AppLayout() {
   const location = useLocation();
@@ -19,6 +21,7 @@ function AppLayout() {
     [vehicles, isLoading]
   );
   const vehiclesPerPage = 50;
+  const [isOpen, setIsOpen] = useState(false);
 
   const handlePageChange = (page) => {
     setPage(page);
@@ -26,18 +29,16 @@ function AppLayout() {
 
   return (
     <div className="app-container">
-      <AppHeader isVehicleListPage={isVehicleListPage} />
-
+      <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+        <SearchForm />
+      </Modal>
+      <AppHeader isVehicleListPage={isVehicleListPage} setIsOpen={setIsOpen} />
       <main className="main-content">
         <InfoMessage isVehicleListPage={isVehicleListPage} />
-
         <div className="layout-wrapper">
-          <div className="outlet-wrapper">
-            <Outlet />
-          </div>
+          <Outlet />
           <VehicleMap />
         </div>
-
         {isVehicleListPage && !isLoading && (
           <Pagination
             currentPage={page}

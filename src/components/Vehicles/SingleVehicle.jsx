@@ -38,7 +38,6 @@ const SingleVehicle = () => {
       headers={headers}
       data={filteredData}
       rowKey={(item) => item[0]}
-      rowClass={() => ""}
       renderRow={([key, value]) => (
         <>
           <th className="mytable-cell capitalize">
@@ -54,7 +53,17 @@ const SingleVehicle = () => {
             ) : key === "fuelLevel" ? (
               <div className="flex items-center gap-4">
                 <p>{value}%</p>
-                <BatteryLevel fuelLevel={value} className="-rotate-90" />
+                <meter
+                  id="fuel"
+                  min="0"
+                  max="100"
+                  low="33"
+                  high="66"
+                  optimum="80"
+                  value={value}
+                >
+                  {value}
+                </meter>
               </div>
             ) : (
               value

@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 
 const Table = forwardRef(
-  ({ headers, data, rowKey, rowClass, renderRow }, ref) => {
+  ({ headers, data, rowKey, rowClass = () => "", renderRow }, ref) => {
     return (
       <div className="self-container">
         <div className="mytable-container no-scrollbar">

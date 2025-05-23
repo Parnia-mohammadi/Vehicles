@@ -66,7 +66,7 @@ function VehicleList() {
             <Link
               to={`/vehicles/${vehicle.vin}`}
               onClick={() => setCurrentVehicle(vehicle)}
-              className="link flex items-center gap-1 max-w-1/2"
+              className="link"
             >
               <p className="truncate">{vehicle.address}</p>
             </Link>

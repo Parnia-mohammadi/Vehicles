@@ -51,7 +51,12 @@ function VehicleMap() {
   if (isLoading) return <Loader />;
 
   return (
-    <MapContainer center={center} zoom={zoom} className="map-container">
+    <MapContainer
+      minZoom={10}
+      center={center}
+      zoom={zoom}
+      className="map-container"
+    >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {vehicles?.map((vehicle) => (
         <VehicleMarker
