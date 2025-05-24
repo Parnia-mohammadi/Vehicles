@@ -19,6 +19,7 @@ export default function AppHeader({ isVehicleListPage, setIsOpen }) {
             <Nav
               searchParams={searchParams}
               isVehicleListPage={isVehicleListPage}
+              setIsOpen={setIsOpen}
             />
             <div className="nav-hamburger" onClick={handleNavbar}>
               <span
@@ -73,21 +74,21 @@ export default function AppHeader({ isVehicleListPage, setIsOpen }) {
   );
 }
 
-function Nav({ isVehicleListPage, searchParams }) {
+function Nav({ isVehicleListPage, searchParams, setIsOpen }) {
   return (
-    <div className="hidden md:flex items-center justify-between">
+    <div className="hidden md:flex items-center justify-between gap-x-2">
       <div className="gap-1 flex-center" onClick={() => setIsOpen(true)}>
         <ScanSearch size={25} />
         <p>Search</p>
       </div>
       <ThemeToggleButton />
-      <Link to="/" className="nav-link">
+      <Link to="/" className="flex gap-x-1">
         <House size={20} />
         Home
       </Link>
       {(!isVehicleListPage || searchParams.size !== 0) && (
-        <Link to="/vehicles" className="nav-link">
-          Back to Vehicles List
+        <Link to="/vehicles" className="flex gap-x-1">
+          <p className="tracking-tight text-nowrap">Back to Vehicles List</p>
           <Undo2 size={20} />
         </Link>
       )}

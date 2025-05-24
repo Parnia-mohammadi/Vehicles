@@ -4,7 +4,7 @@ import Loader from "../../ui/Loader";
 import Table from "../../ui/Table";
 import { useVehicles } from "../../hooks/useVehicles";
 import Error from "../../ui/Error";
-import { useCurrentVehicle } from "../../context/vehiclesProvider";
+import { useCurrentVehicle } from "../../context/VehiclesProvider";
 import BatteryLevel from "../../ui/BatteryLevel";
 import { useFilteredVehicles } from "../../hooks/useFilteredVehicles";
 import NotFound from "../../ui/NotFound";
@@ -71,7 +71,7 @@ function VehicleList() {
               onClick={() => setCurrentVehicle(vehicle)}
               className="link"
             >
-              <p className="truncate">{vehicle.address}</p>
+              <p className="truncate max-w-1/2">{vehicle.address}</p>
             </Link>
           </td>
         </>

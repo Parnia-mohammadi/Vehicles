@@ -7,7 +7,7 @@ function ThemeToggleButton({ className = "" }) {
   return (
     <button
       onClick={() => toggleTheme()}
-      className={`flex items-center gap-x-1 px-3 py-1 rounded-md text-sm hover:bg-white hover:text-black dark:hover:bg-gray-700 transition-all ${className}`}
+      className={`flex items-center gap-x-1 rounded-md text-sm transition-all ${className}`}
       aria-label="Toggle theme"
     >
       {theme === "dark" ? (
