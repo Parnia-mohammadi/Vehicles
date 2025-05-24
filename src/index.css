@@ -23,23 +23,23 @@
   }
 
   .mytable-container {
-    @apply items-center overflow-y-auto rounded-lg h-full shadow-lg;
+    @apply items-center overflow-y-auto rounded-lg dark:border-white dark:border h-full shadow-lg;
   }
 
   .mytable {
-    @apply w-full border-collapse bg-white;
+    @apply w-full border-collapse bg-white dark:bg-gray-600;
   }
 
   .mytable-header {
-    @apply sticky top-0 bg-blue-100 text-gray-700 w-auto z-20;
+    @apply sticky top-0 bg-blue-100 dark:bg-gray-900 text-gray-700 dark:text-gray-50 w-auto z-20;
   }
 
   .mytable-row {
-    @apply border-b border-gray-300 hover:bg-gray-100;
+    @apply border-b border-gray-300 hover:bg-gray-100 dark:text-gray-50 dark:hover:bg-gray-700;
   }
 
   .active-row {
-    @apply bg-indigo-100;
+    @apply bg-indigo-100 dark:bg-gray-800;
   }
 
   .mytable-cell {
@@ -47,7 +47,7 @@
   }
 
   .link {
-    @apply text-blue-500 hover:underline;
+    @apply text-blue-500 hover:underline dark:text-blue-300;
   }
 
   .app-container {
