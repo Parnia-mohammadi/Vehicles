@@ -99,6 +99,26 @@ describe("VehicleList Component", () => {
     ).toBeInTheDocument();
   });
 
+  it("should display NotFound when no vehicle is available", () => {
+    useVehicles.mockReturnValue({ isLoading: false, error: null });
+    useFilteredVehicles.mockReturnValue([]);
+    useCurrentVehicle.mockReturnValue({
+      page: 1,
+      currentVehicle: null,
+      setCurrentVehicle: vi.fn(),
+    });
+
+    render(
+      <BrowserRouter>
+        <VehiclesProvider>
+          <VehicleList />
+        </VehiclesProvider>
+      </BrowserRouter>
+    );
+
+    expect(screen.getByTestId("not-found")).toBeInTheDocument();
+  });
+
   it("should display the vehicle list", () => {
     useVehicles.mockReturnValue({ isLoading: false, error: null });
     useFilteredVehicles.mockReturnValue(mockVehicles);

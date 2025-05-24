@@ -7,7 +7,10 @@ function NotFound() {
     navigate("/vehicles");
   };
   return (
-    <div className="self-container rounded-lg items-center shadow-2xl dark:text-white">
+    <div
+      data-testid="not-found"
+      className="self-container rounded-lg items-center shadow-2xl dark:text-white"
+    >
       <p className="text-xl">⚠ Vehicle not found</p>
       <BackButton onClick={handleBack} />
     </div>
