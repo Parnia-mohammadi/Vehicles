@@ -11,19 +11,16 @@ export default function AppHeader({ isVehicleListPage, setIsOpen }) {
   };
 
   return (
-    <div>
+    <>
       <header className="app-header">
         <div className="app-header-wraper">
-          <h1 className="page-title">🚗 Vehicle Tracking System :</h1>
+          <p className="page-title">🚗 Vehicle Tracking System :</p>
           <nav className="nav-links">
             <Nav
               searchParams={searchParams}
               isVehicleListPage={isVehicleListPage}
             />
-            <div
-              className="flex flex-col gap-y-[7px] md:hidden"
-              onClick={handleNavbar}
-            >
+            <div className="nav-hamburger" onClick={handleNavbar}>
               <span
                 className={`hamburger-class ${
                   isNavOpen ? "-rotate-45 translate-y-[9px]" : ""
@@ -44,8 +41,8 @@ export default function AppHeader({ isVehicleListPage, setIsOpen }) {
       <div
         className={`${
           isNavOpen
-            ? "bg-gray-900 text-white w-full h-fit opacity-100 transition-all ease-in-out duration-1000 md:opacity-0 md:h-0"
-            : "opacity-0 h-0"
+            ? "bg-gray-900 text-white w-full h-fit flex-center md:hidden"
+            : "hidden"
         }`}
       >
         <ul className="text-base text-gray-300 flex flex-col gap-y-4 p-4 *:gap-4 *:flex *:items-center *:justify-center *:w-full  *:hover:text-blue-400">
@@ -72,13 +69,13 @@ export default function AppHeader({ isVehicleListPage, setIsOpen }) {
           )}
         </ul>
       </div>
-    </div>
+    </>
   );
 }
 
 function Nav({ isVehicleListPage, searchParams }) {
   return (
-    <div className="hidden md:flex md:items-center md:justify-between">
+    <div className="hidden md:flex items-center justify-between">
       <div className="gap-1 flex-center" onClick={() => setIsOpen(true)}>
         <ScanSearch size={25} />
         <p>Search</p>

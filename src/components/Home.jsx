@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-300 via-gray-500 to-gray-900 text-white">
-      <div className="text-center mx-10">
+      <div className="text-center mx-10 ">
         <h1 className="text-2xl md:text-5xl font-extrabold tracking-wide">
           Welcome to Vehicle Tracking System
         </h1>
