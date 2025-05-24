@@ -1,6 +1,6 @@
 import Table from "../../ui/Table";
 import { useVehicles } from "../../hooks/useVehicles";
-import { useCurrentVehicle } from "../../context/vehiclesProvider";
+import { useCurrentVehicle } from "../../context/VehiclesProvider";
 import Loader from "../../ui/Loader";
 import NotFound from "../../ui/NotFound";
 
@@ -30,7 +30,7 @@ const SingleVehicle = () => {
           <th className="mytable-cell capitalize">
             {key.replace(/([A-Z])/g, " $1")}
           </th>
-          <td className="mytable-cell">
+          <td className="mytable-cell w-auto overflow-visible whitespace-normal wrap-anywhere">
             {typeof value === "boolean" ? (
               value ? (
                 "Yes"
@@ -48,6 +48,7 @@ const SingleVehicle = () => {
                   high="66"
                   optimum="80"
                   value={value}
+                  className="z-10"
                 >
                   {value}
                 </meter>

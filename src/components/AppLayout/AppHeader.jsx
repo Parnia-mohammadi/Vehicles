@@ -46,7 +46,7 @@ export default function AppHeader({ isVehicleListPage, setIsOpen }) {
             : "hidden"
         }`}
       >
-        <ul className="text-base text-gray-300 flex flex-col gap-y-4 p-4 *:gap-4 *:flex *:items-center *:justify-center *:w-full  *:hover:text-blue-400">
+        <ul className="text-base text-gray-300 flex flex-col gap-y-4 p-4 md:hidden *:gap-4 *:flex *:items-center *:justify-center *:w-full  *:hover:text-blue-400">
           <li onClick={() => setIsOpen(true)}>
             <ScanSearch size={25} />
             <p>Search</p>

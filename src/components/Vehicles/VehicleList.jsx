@@ -71,7 +71,9 @@ function VehicleList() {
               onClick={() => setCurrentVehicle(vehicle)}
               className="link"
             >
-              <p className="truncate max-w-1/2">{vehicle.address}</p>
+              <p className="w-auto overflow-visible whitespace-normal wrap-anywhere">
+                {vehicle.address}
+              </p>
             </Link>
           </td>
         </>
