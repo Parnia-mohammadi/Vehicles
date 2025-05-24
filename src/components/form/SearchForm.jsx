@@ -137,7 +137,7 @@ function SearchForm({ setIsOpen }) {
       <input
         type="submit"
         value="Submit"
-        className="bg-slate-700 text-white w-full rounded-lg py-[3%]"
+        className="bg-emerald-900 text-white w-full hover:bg-emerald-800 rounded-lg py-[3%]"
       />
     </form>
   );

@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { useVehicles } from "../hooks/useVehicles";
 import { useFilteredVehicles } from "../hooks/useFilteredVehicles";
@@ -7,6 +7,7 @@ import VehiclesProvider, {
 } from "../context/VehiclesProvider";
 import VehicleList from "../components/Vehicles/VehicleList";
 import { BrowserRouter } from "react-router-dom";
+import { createRef } from "react";
 
 // Mock useVehicles
 vi.mock("../hooks/useVehicles", () => ({
@@ -22,7 +23,7 @@ vi.mock("../hooks/useFilteredVehicles", () => ({
 vi.mock("../context/VehiclesProvider", async (importOriginal) => {
   const actual = await importOriginal();
   return {
-    ...actual, // Preserve all original exports
+    ...actual,
     useCurrentVehicle: vi.fn(() => ({
       page: 1,
       currentVehicle: null,
@@ -138,5 +139,38 @@ describe("VehicleList Component", () => {
 
     expect(screen.getByText("B-GO5649")).toBeInTheDocument();
     expect(screen.getByText("B-GO1607")).toBeInTheDocument();
+  });
+
+  it("should update currentVehicle when clicking on a link,highlight and scroll it", async () => {
+    const mockVehicles = [
+      {
+        vin: "WDD1760121J522347",
+        plate: "B-GO5649",
+        fuelLevel: 100,
+        address: "HH Flughafen P2 Bereich B",
+      },
+    ];
+
+    const mockSetCurrentVehicle = vi.fn();
+    useCurrentVehicle.mockReturnValue({
+      page: 1,
+      currentVehicle: null,
+      setCurrentVehicle: mockSetCurrentVehicle,
+    });
+
+    useVehicles.mockReturnValue({ isLoading: false });
+    useFilteredVehicles.mockReturnValue(mockVehicles);
+
+    render(
+      <BrowserRouter>
+        <VehicleList />
+      </BrowserRouter>
+    );
+
+    const vehicleLink = screen.getByText("HH Flughafen P2 Bereich B");
+
+    fireEvent.click(vehicleLink);
+
+    expect(mockSetCurrentVehicle).toHaveBeenCalledWith(mockVehicles[0]);
   });
 });
