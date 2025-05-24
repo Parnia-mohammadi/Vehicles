@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { useCurrentVehicle } from "../../context/vehiclesProvider";
+import { useCurrentVehicle } from "../../context/VehiclesProvider";
 import { schema } from "./schema";
 
 const fuelTypes = ["Gasoline", "Diesel", "Super_Plus"];

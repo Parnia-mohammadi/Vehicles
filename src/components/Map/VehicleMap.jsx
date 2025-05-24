@@ -3,7 +3,7 @@ import "leaflet/dist/leaflet.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useMemo, useRef } from "react";
 import { useVehicles } from "../../hooks/useVehicles";
-import { useCurrentVehicle } from "../../context/vehiclesProvider";
+import { useCurrentVehicle } from "../../context/VehiclesProvider";
 // import MarkerClusterGroup from "react-leaflet-markercluster";
 import Loader from "../../ui/Loader";
 import { useFilteredVehicles } from "../../hooks/useFilteredVehicles";

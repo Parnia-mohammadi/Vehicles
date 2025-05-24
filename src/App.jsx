@@ -4,7 +4,7 @@ import Home from "./components/Home";
 import AppLayout from "./components/AppLayout/AppLayout";
 import SingleVehicle from "./components/Vehicles/SingleVehicle";
 import { Toaster } from "react-hot-toast";
-import VehiclesProvider from "./context/vehiclesProvider";
+import VehiclesProvider from "./context/VehiclesProvider";
 import { ThemeProvider } from "./context/ThemeProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useCurrentVehicle } from "../context/vehiclesProvider";
+import { useCurrentVehicle } from "../context/VehiclesProvider";
 import { useFilteredVehicles } from "../hooks/useFilteredVehicles";
 import { useVehicles } from "../hooks/useVehicles";
 
